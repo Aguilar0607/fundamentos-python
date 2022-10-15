@@ -26,13 +26,14 @@ def add_element():
 def remove_element():
     id = int(input('Ingresa el ID del elemento a eliminar: '))
     found = find_element(id)    
-    print(f"    {found}")
-    aceptar = input(f"Estas seguro? (S/N)")
-    if aceptar == "S":
-        lista_elements.remove(found)
-        print("Elemento eliminado")
+    if found:
+        print(f"    {found}")
+        aceptar = input(f"Estas seguro? (S/N)")
+        if aceptar == "S":
+            lista_elements.remove(found)
+            print("Elemento eliminado")
     else:
-        print("No se elimino el elemento")
+        print(f"El elemento con id {id} no existe")
 
 def show_element():
     pass
@@ -42,13 +43,14 @@ def find_element(id):
     for element in lista_elements:
         if element['id'] == id:
             found = element
-    return found
+        return found
 
 def show_elements():
     # print(lista_element)
     for element in lista_elements:
-        for key, value in element.items():
-            print(f"    {key} -> {value}")
+        print(f"    Alumno: {element['id']} {element['name']} {element['last_name']}")
+        # for key, value in element.items():
+        #     print(f"    {key} -> {value}")
 
 def edit_element():
     id = int(input('Ingresa el ID del elemento a editar: '))
@@ -61,6 +63,8 @@ def edit_element():
         lista_elements[index]['name'] = name
     if last_name != '':
         lista_elements[index]['last_name'] = last_name
+    else:
+        print(f"El elemento con id {id} no existe")
     
     # name = input(f"\nIngrese el nuevo nombre de la persona: ")
     # last_name = input(f"\nIngrese el nuevo apellido de la persona: ")
@@ -100,7 +104,8 @@ if __name__ == '__main__':
             print(f"\n    Busca por ID")
             id = int(input("Ingresa el ID a buscar: "))
             found = find_element(id)
-            print(found)
+            if found:
+                print(found)
         elif opcion == '4':
             print('    Editar elemento')
             edit_element()
